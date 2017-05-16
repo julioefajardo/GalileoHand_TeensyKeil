@@ -19,13 +19,13 @@ const uint32_t fingers_mask[] = { 1<<4, 1<<2,  1<<3,
                                   1<<3, 1<<4,  1<<2,
                                   1<<7, 1<<13, 1<<12,
                                   1<<0, 1<<6,  1<<1
-																};
+                                };
 
 GPIO_Type * fingers_addr[]    = { PTC, PTC, PTC,
-																	PTD, PTD, PTD,
-																	PTD, PTA, PTA,
-																	PTD, PTD, PTC
-																};
+                                  PTD, PTD, PTD,
+                                  PTD, PTA, PTA,
+                                  PTD, PTD, PTC
+                                };
 
 					
 fingers thumb_f =   {WAITC,0,0,160};
