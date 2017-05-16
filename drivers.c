@@ -1,4 +1,16 @@
+/* Universidad Galileo
+ * Turing Research Lab
+ * Julio E. Fajardo
+ * Galileo Bionic Hand
+ * CMSIS-DSP Application
+ * Embedded Prostheses Controller
+ * May-09-2017
+ * drivers.c
+ */
+
 #include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
 #include "MK20D7.h"
 
 static const uint8_t channel2sc1a[] = {
@@ -6,19 +18,6 @@ static const uint8_t channel2sc1a[] = {
 	0, 19, 3, 19+128, 26, 18+128, 23,
 	5+192, 5+128, 4+128, 6+128, 7+128, 4+192
 };
-
-const uint32_t fingers_mask[] = { 1UL << 4, 1UL << 2,  1UL << 3,
-																	1UL << 3, 1UL << 4,  1UL << 2,
-																	1UL << 7, 1UL << 13, 1UL << 12,
-																	1UL << 0, 1UL << 6,  1UL << 1
-																};
-
-GPIO_Type * fingers_addr[]    = { PTC, PTC, PTC,
-																	PTD, PTD, PTD,
-																	PTD, PTA, PTA,
-																	PTD, PTD, PTC
-																};
-
 
 //Peripheral Configurations
 void LED_Init(void){
@@ -142,20 +141,6 @@ void LED_Toggle(void){
 	PTC->PTOR |= (1UL<<5);
 }
 
-void Finger_Close(uint32_t finger){
-	if((finger>0)&&(finger<=6)){	
-		fingers_addr[2*(finger-1)]->PSOR  |=  fingers_mask[2*(finger-1)];
-		fingers_addr[2*(finger-1)+1]->PCOR  |=  fingers_mask[2*(finger-1)+1];
-	}
-}
-
-void Finger_Open(uint32_t finger){
-  if((finger>0)&&(finger<=6)){	
-		fingers_addr[2*(finger-1)]->PCOR  |=  fingers_mask[2*(finger-1)];
-		fingers_addr[2*(finger-1)+1]->PSOR  |=  fingers_mask[2*(finger-1)+1];
-	}
-}
-
 uint16_t ADC0_Read(unsigned int index){
 	uint8_t channel = channel2sc1a[index];
 	ADC0->SC1[0] = ADC_SC1_ADCH(channel);   
@@ -185,4 +170,29 @@ void UART2_putString(char *mystring){
 		UART2_send(*mystring);
 		mystring++;
 	}
+}
+
+//array reverse
+void reverse(char s[]){
+	int i, j; char c;
+  for (i = 0, j = strlen(s)-1; i<j; i++, j--) {
+		c = s[i];
+    s[i] = s[j];
+    s[j] = c;	
+	}
+}
+
+//int to string
+void itoa(int32_t n, char s[]){
+	int i, sign;
+  if ((sign = n) < 0)  											/* record sign */
+		n = -n;          												/* make n positive */
+    i = 0;
+    do {      														  /* generate digits in reverse order */
+			s[i++] = n % 10 + '0';   							/* get next digit */
+    } while ((n /= 10) > 0);     						/* delete it */
+			if (sign < 0)
+				s[i++] = '-';
+			s[i] = '\0';
+			reverse(s);
 }
