@@ -60,16 +60,7 @@ int main(void){
 		
 		if(btn) Finger_Action(&little_f, 1, CLOSE);
 		else Finger_Action(&little_f, 1, OPEN);
-			
-			/*
-			if((little_f.time_ms>0)&&(little_f.state == OPENING)) {
-				Finger_Open(1);
-			}
-			else{
-				Finger_Stop(1);
-				little_f.state = WAITC;
-			}
-		*/
+		
 		//Finger_Close(1);
 		//Finger_Open(1);
 		
@@ -78,7 +69,6 @@ int main(void){
 
 void SysTick_Handler(void) {
 	//char String[16];
-	
 	little_f.buffer[ticks%SIZE] = (int16_t) ADC0_Read(3);
 	ring_f.buffer[ticks%SIZE] = (int16_t) ADC0_Read(4);
 	middle_f.buffer[ticks%SIZE] = (int16_t) ADC0_Read(5);
@@ -89,7 +79,6 @@ void SysTick_Handler(void) {
 	//itoa(little_f.time_ms,String);
 	//itoa(little_f.mean,String);
 	//UART0_putString(String);
-	//UART0_send('\r');
 	ticks++; 
 }
 
@@ -127,12 +116,6 @@ void Finger_Timing(uint8_t *state, uint32_t *time_ms){
 		case CLOSE: *time_ms += 1; break;
 		case WAITO: *time_ms += 0;
 	}
-	/*
-	if (little_f.state == OPENING) little_f.time_ms--;
-	else if (little_f.state == WAITC) little_f.time_ms = 0;
-	else if (little_f.state == CLOSING) little_f.time_ms++;
-	else little_f.time_ms += 0;
-	*/
 }
 
 void Finger_Close(uint8_t finger_m){
