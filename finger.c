@@ -28,15 +28,6 @@ GPIO_Type * fingers_addr[]    = { PTC, PTC, PTC,
                                   PTD, PTD, PTC
                                 };
 
-void Finger_Timing(uint8_t *state, uint32_t *time_ms){
-	switch(*state){
-		case OPEN:  *time_ms -= 1; break;
-		case WAITC: *time_ms = 0; break;
-		case CLOSE: *time_ms += 1; break;
-		case WAITO: *time_ms += 0;
-	}
-}
-
 void Finger_Close(uint8_t finger_m){
 	if((finger_m>0)&&(finger_m<=6)){	
 		fingers_addr[2*(finger_m-1)]->PSOR  |=  fingers_mask[2*(finger_m-1)];
@@ -114,3 +105,13 @@ void Finger_Action(fingers * finger_f, uint8_t action){
 		}
 	}
 }
+
+void Finger_Timing(fingers * finger_f){
+	switch(finger_f->state){
+		case OPEN:  finger_f->time_ms -= 1; break;
+		case WAITC: finger_f->time_ms = 0; break;
+		case CLOSE: finger_f->time_ms += 1; break;
+		case WAITO: finger_f->time_ms += 0;
+	}
+}
+

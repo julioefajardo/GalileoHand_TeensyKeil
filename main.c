@@ -37,6 +37,9 @@ int main(void){
 	SysTick_Config(SystemCoreClock/1000);
 	
 	arm_fill_q15(0, little_f.buffer, SIZE);
+	arm_fill_q15(0, ring_f.buffer, SIZE);
+	arm_fill_q15(0, middle_f.buffer, SIZE);
+	arm_fill_q15(0, index_f.buffer, SIZE);
 	
 	while(1){
 		
@@ -56,7 +59,7 @@ void SysTick_Handler(void) {
 	middle_f.buffer[ticks%SIZE] = (int16_t) ADC0_Read(5);
 	index_f.buffer[ticks%SIZE] = (int16_t) ADC0_Read(6);
 	
-	Finger_Timing(&little_f.state, &little_f.time_ms);
+	Finger_Timing(&little_f);
 	
 	//itoa(little_f.time_ms,String);
 	//itoa(little_f.mean,String);
