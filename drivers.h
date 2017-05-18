@@ -31,7 +31,9 @@
 
 typedef struct finger{
 	uint8_t state;
+	uint8_t finger_m;
   uint32_t time_ms;	
+	uint32_t time_r;
 	q15_t mean;
 	q15_t threshold;
 	q15_t buffer[SIZE];

@@ -14,37 +14,19 @@
 #include "arm_math.h"                   					// ARM::CMSIS:DSP
 #include <stdlib.h>
 #include "drivers.h"
-
-const uint32_t fingers_mask[] = { 1<<4, 1<<2,  1<<3,
-                                  1<<3, 1<<4,  1<<2,
-                                  1<<7, 1<<13, 1<<12,
-                                  1<<0, 1<<6,  1<<1
-                                };
-
-GPIO_Type * fingers_addr[]    = { PTC, PTC, PTC,
-                                  PTD, PTD, PTD,
-                                  PTD, PTA, PTA,
-                                  PTD, PTD, PTC
-                                };
-
-					
-fingers thumb_f =   {WAITC,0,0,160};
-fingers index_f =   {WAITC,0,0,160};
-fingers middle_f =  {WAITC,0,0,160};
-fingers ring_f =    {WAITC,0,0,160};
-fingers little_f =  {WAITC,0,0,120};
-fingers thumb_rot = {WAITC,0,0,160};
-
+#include "finger.h"
+				
+fingers thumb_f =   {WAITC,5,0,200,0,160};
+fingers index_f =   {WAITC,4,0,200,0,160};
+fingers middle_f =  {WAITC,3,0,200,0,160};
+fingers ring_f =    {WAITC,2,0,200,0,160};
+fingers little_f =  {WAITC,1,0,200,0,120};
+fingers thumb_rot = {WAITC,6,0,200,0,160};
+	
 uint8_t btn = 0;																	// Activate / deactivate 
 uint8_t cmd = 0;																	// LCD commands
 uint32_t ticks = 0;																// 1 ms ticks
 uint8_t i = 0;
-
-void Finger_Close(uint8_t finger_m);
-void Finger_Open(uint8_t finger_m);
-void Finger_Stop(uint8_t finger_m);
-void Finger_Timing(uint8_t *state, uint32_t * time_ms);
-void Finger_Action(fingers * finger_f, uint8_t finger, uint8_t action);
 
 int main(void){
 	Switch_Init();
@@ -58,8 +40,8 @@ int main(void){
 	
 	while(1){
 		
-		if(btn) Finger_Action(&little_f, 1, CLOSE);
-		else Finger_Action(&little_f, 1, OPEN);
+		if(btn) Finger_Action(&little_f, CLOSE);
+		else Finger_Action(&little_f, OPEN);
 		
 		//Finger_Close(1);
 		//Finger_Open(1);
@@ -107,90 +89,4 @@ void UART0_RX_TX_IRQHandler(void){
   (void) UART0->S1;
 	data = UART0->D;
 	UART0->D = data;
-}
-
-void Finger_Timing(uint8_t *state, uint32_t *time_ms){
-	switch(*state){
-		case OPEN:  *time_ms -= 1; break;
-		case WAITC: *time_ms = 0; break;
-		case CLOSE: *time_ms += 1; break;
-		case WAITO: *time_ms += 0;
-	}
-}
-
-void Finger_Close(uint8_t finger_m){
-	if((finger_m>0)&&(finger_m<=6)){	
-		fingers_addr[2*(finger_m-1)]->PSOR  |=  fingers_mask[2*(finger_m-1)];
-		fingers_addr[2*(finger_m-1)+1]->PCOR  |=  fingers_mask[2*(finger_m-1)+1];
-	}
-}
-
-void Finger_Open(uint8_t finger_m){
-  if((finger_m>0)&&(finger_m<=6)){	
-		fingers_addr[2*(finger_m-1)]->PCOR  |=  fingers_mask[2*(finger_m-1)];
-		fingers_addr[2*(finger_m-1)+1]->PSOR  |=  fingers_mask[2*(finger_m-1)+1];
-	}
-}
-
-void Finger_Stop(uint8_t finger_m){
-  if((finger_m>0)&&(finger_m<=6)){	
-		fingers_addr[2*(finger_m-1)]->PCOR  |=  fingers_mask[2*(finger_m-1)];
-		fingers_addr[2*(finger_m-1)+1]->PCOR  |=  fingers_mask[2*(finger_m-1)+1];
-	}
-}
-
-void Finger_Action(fingers * finger_f, uint8_t finger_m, uint8_t action){
-	if(action == CLOSE){
-		switch(finger_f->state){
-			case OPEN:{
-				finger_f->state = CLOSE;
-				Finger_Stop(finger_m);
-			} break;
-			case WAITC:{
-				finger_f->state = CLOSE;
-				Finger_Stop(finger_m);
-			} break;
-			case CLOSE:{
-				arm_mean_q15(finger_f->buffer,SIZE,&finger_f->mean);
-				if((little_f.mean<finger_f->threshold)&&(finger_f->state == CLOSE)){
-					finger_f->state = CLOSE;
-					Finger_Close(finger_m);
-				}
-				else { 
-					finger_f->state = WAITO;
-					Finger_Stop(finger_m);
-				}	
-			} break;
-			case WAITO:{
-				finger_f->state = WAITO;
-				Finger_Stop(finger_m);
-			} break;
-		}
-	} else{	//OPEN
-		switch(finger_f->state){
-			case OPEN:{
-				if((finger_f->time_ms>0)&&(finger_f->state == OPEN)){
-					finger_f->state = OPEN;
-					Finger_Open(finger_m);
-				}
-				else{
-					finger_f->state = WAITC;
-					finger_f->time_ms = 0;
-					Finger_Stop(finger_m);
-				}
-			} break;
-			case WAITC:{
-				finger_f->state = WAITC;
-				Finger_Stop(finger_m);
-			} break;
-			case CLOSE:{
-				finger_f->state = OPEN;
-				Finger_Stop(finger_m);
-			} break;
-			case WAITO:{
-				finger_f->state = OPEN;
-				Finger_Stop(finger_m);
-			} break;
-		}
-	}
 }

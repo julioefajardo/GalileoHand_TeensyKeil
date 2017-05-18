@@ -1,6 +1,7 @@
 --cpu Cortex-M4
 ".\objects\main.o"
 ".\objects\drivers.o"
+".\objects\finger.o"
 "C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Lib\ARM\arm_cortexM4l_math.lib"
 ".\objects\startup_mk20d7.o"
 ".\objects\system_mk20d7.o"

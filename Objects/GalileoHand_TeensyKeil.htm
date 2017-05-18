@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\GalileoHand_TeensyKeil.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\GalileoHand_TeensyKeil.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060183: Last Updated: Tue May 16 16:07:39 2017
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060183: Last Updated: Thu May 18 15:18:31 2017
 <BR><P>
 <H3>Maximum Stack Usage =         36 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -687,7 +687,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 </UL>
 
-<P><STRONG><a name="[82]"></a>Finger_Action</STRONG> (Thumb, 216 bytes, Stack size 16 bytes, main.o(i.Finger_Action))
+<P><STRONG><a name="[82]"></a>Finger_Action</STRONG> (Thumb, 222 bytes, Stack size 16 bytes, finger.o(i.Finger_Action))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = Finger_Action &rArr; arm_mean_q15
 </UL>
 <BR>[Calls]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arm_mean_q15
@@ -698,19 +698,19 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[85]"></a>Finger_Close</STRONG> (Thumb, 88 bytes, Stack size 0 bytes, main.o(i.Finger_Close))
+<P><STRONG><a name="[85]"></a>Finger_Close</STRONG> (Thumb, 88 bytes, Stack size 0 bytes, finger.o(i.Finger_Close))
 <BR><BR>[Called By]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Finger_Action
 </UL>
 
-<P><STRONG><a name="[86]"></a>Finger_Open</STRONG> (Thumb, 88 bytes, Stack size 0 bytes, main.o(i.Finger_Open))
+<P><STRONG><a name="[86]"></a>Finger_Open</STRONG> (Thumb, 88 bytes, Stack size 0 bytes, finger.o(i.Finger_Open))
 <BR><BR>[Called By]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Finger_Action
 </UL>
 
-<P><STRONG><a name="[83]"></a>Finger_Stop</STRONG> (Thumb, 88 bytes, Stack size 0 bytes, main.o(i.Finger_Stop))
+<P><STRONG><a name="[83]"></a>Finger_Stop</STRONG> (Thumb, 88 bytes, Stack size 0 bytes, finger.o(i.Finger_Stop))
 <BR><BR>[Called By]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Finger_Action
 </UL>
 
-<P><STRONG><a name="[8d]"></a>Finger_Timing</STRONG> (Thumb, 50 bytes, Stack size 0 bytes, main.o(i.Finger_Timing))
+<P><STRONG><a name="[8d]"></a>Finger_Timing</STRONG> (Thumb, 50 bytes, Stack size 0 bytes, finger.o(i.Finger_Timing))
 <BR><BR>[Called By]<UL><LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 </UL>
 
@@ -750,8 +750,8 @@ Global Symbols
 <P><STRONG><a name="[c]"></a>SysTick_Handler</STRONG> (Thumb, 136 bytes, Stack size 8 bytes, main.o(i.SysTick_Handler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = SysTick_Handler
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC0_Read
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Finger_Timing
+<BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Finger_Timing
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC0_Read
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_mk20d7.o(RESET)
 </UL>
@@ -773,7 +773,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PORTC_IRQHandler
 </UL>
 
-<P><STRONG><a name="[7a]"></a>main</STRONG> (Thumb, 144 bytes, Stack size 0 bytes, main.o(i.main))
+<P><STRONG><a name="[7a]"></a>main</STRONG> (Thumb, 140 bytes, Stack size 0 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = main &rArr; Finger_Action &rArr; arm_mean_q15
 </UL>
 <BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arm_fill_q15
@@ -781,8 +781,8 @@ Global Symbols
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Switch_Init
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Output_Init
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Init
-<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC0_Init
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Finger_Action
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC0_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
