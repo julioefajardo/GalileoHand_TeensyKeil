@@ -20,14 +20,14 @@ static const uint8_t channel2sc1a[] = {
 };
 
 //Peripheral Configurations
-void LED_Init(void){
+void LED_Config(void){
 	SIM->SCGC5 |= SIM_SCGC5_PORTC_MASK; 																					//Enable Clock to Port C  
 	PORTC->PCR[5]  = (1<<8);                           														//PTC.5 is GPIO  	
 	PTC->PDOR &= ~(1<<5);
 	PTC->PDDR |= (1<<5);																													//PTC.5 as Output
 }
 
-void Output_Init(void){
+void Output_Config(void){
 	SIM->SCGC5 |= SIM_SCGC5_PORTA_MASK;
 	SIM->SCGC5 |= SIM_SCGC5_PORTC_MASK;
 	SIM->SCGC5 |= SIM_SCGC5_PORTD_MASK;	
@@ -48,7 +48,7 @@ void Output_Init(void){
 	PTD->PDDR |= (1<<0)|(1<<2)|(1<<3)|(1<<4)|(1<<6)|(1<<7);												//PTD.0,2,3,4,6&7 as Output
 }
 
-void Switch_Init(void){
+void Switch_Config(void){
 	SIM->SCGC5 |= SIM_SCGC5_PORTC_MASK;						
   PORTC->PCR[6] |= PORT_PCR_IRQC(0x09) + PORT_PCR_MUX(0x01) + PORT_PCR_PE_MASK;	//PTC6 es el 11 
 	PORTC->PCR[6] |= PORT_PCR_PFE_MASK;
@@ -63,7 +63,7 @@ void Switch_Init(void){
 }
 
 //Ref 3.3V
-void ADC0_Init(void){
+void ADC0_Config(void){
 	SIM->SCGC6 |= SIM_SCGC6_ADC0_MASK;
 	ADC0->CFG1 = ADC_CFG1_MODE(1) + ADC_CFG1_ADLSMP_MASK + ADC_CFG1_ADICLK(0);  	//Clock/4 - short sample - 12 bits - Bus clk/2
 	ADC0->CFG2 = ADC_CFG2_MUXSEL_MASK + ADC_CFG2_ADLSTS(2); 											//High Speed, ADCB - Clk enable
@@ -74,7 +74,7 @@ void ADC0_Init(void){
 	ADC0->OFS = 0x04;																															//Offset value
 }
 
-void FTM0_Init(void){
+void FTM0_Config(void){
   SIM->SCGC6 |= SIM_SCGC6_FTM0_MASK;
 	FTM0->MODE |= FTM_MODE_WPDIS_MASK + FTM_MODE_INIT_MASK;														//Write protection disable   
 	FTM0->CONTROLS[0].CnSC = FTM_CnSC_CHIE_MASK+FTM_CnSC_MSB_MASK+FTM_CnSC_ELSB_MASK; //C0 Edge Align PWM High True
@@ -94,7 +94,7 @@ void FTM0_Init(void){
 	NVIC_EnableIRQ(FTM0_IRQn);
 }
 
-void UART0_Init(void){
+void UART0_Config(void){
 	SIM->SCGC5 |= SIM_SCGC5_PORTB_MASK;
 	SIM->SCGC4 |= SIM_SCGC4_UART0_MASK; 
 	PORTB->PCR[16] = (PORT_PCR_PE_MASK | PORT_PCR_PS_MASK | PORT_PCR_PFE_MASK | PORT_PCR_MUX(3));
@@ -111,7 +111,7 @@ void UART0_Init(void){
 	NVIC_EnableIRQ(UART0_RX_TX_IRQn);			
 }
 
-void UART2_Init(void){
+void UART2_Config(void){
 	SIM->SCGC5 |= SIM_SCGC5_PORTD_MASK;
 	SIM->SCGC4 |= SIM_SCGC4_UART2_MASK; 
 	PORTD->PCR[2] = (PORT_PCR_PE_MASK | PORT_PCR_PS_MASK | PORT_PCR_PFE_MASK | PORT_PCR_MUX(3));

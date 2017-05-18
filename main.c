@@ -29,11 +29,11 @@ uint32_t ticks = 0;																// 1 ms ticks
 uint8_t i = 0;
 
 int main(void){
-	Switch_Init();
-	LED_Init(); 
-	ADC0_Init();
-	UART0_Init();
-	Output_Init();
+	Switch_Config();
+	LED_Config(); 
+	ADC0_Config();
+	UART0_Config();
+	Output_Config();
 	SysTick_Config(SystemCoreClock/1000);
 	
 	arm_fill_q15(0, little_f.buffer, SIZE);

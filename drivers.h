@@ -39,13 +39,13 @@ typedef struct finger{
 	q15_t buffer[SIZE];
 	} fingers;
 
-void LED_Init(void);
-void Output_Init(void);
-void Switch_Init(void);
-void ADC0_Init(void);
-void FTM0_Init(void);
-void UART0_Init(void);
-void UART2_Init(void);
+void LED_Config(void);
+void Output_Config(void);
+void Switch_Config(void);
+void ADC0_Config(void);
+void FTM0_Config(void);
+void UART0_Config(void);
+void UART2_Config(void);
 
 void LED_On(void);
 void LED_Off(void);

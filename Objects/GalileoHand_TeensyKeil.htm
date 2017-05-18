@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\GalileoHand_TeensyKeil.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\GalileoHand_TeensyKeil.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060183: Last Updated: Thu May 18 15:42:10 2017
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060183: Last Updated: Thu May 18 15:55:33 2017
 <BR><P>
 <H3>Maximum Stack Usage =         36 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -679,7 +679,7 @@ Global Symbols
 
 <P><STRONG><a name="[bf]"></a>__semihosting_library_function</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, indicate_semi.o(.text), UNUSED)
 
-<P><STRONG><a name="[90]"></a>ADC0_Init</STRONG> (Thumb, 42 bytes, Stack size 0 bytes, drivers.o(i.ADC0_Init))
+<P><STRONG><a name="[90]"></a>ADC0_Config</STRONG> (Thumb, 42 bytes, Stack size 0 bytes, drivers.o(i.ADC0_Config))
 <BR><BR>[Called By]<UL><LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -714,7 +714,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 </UL>
 
-<P><STRONG><a name="[8f]"></a>LED_Init</STRONG> (Thumb, 50 bytes, Stack size 0 bytes, drivers.o(i.LED_Init))
+<P><STRONG><a name="[8f]"></a>LED_Config</STRONG> (Thumb, 50 bytes, Stack size 0 bytes, drivers.o(i.LED_Config))
 <BR><BR>[Called By]<UL><LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -726,7 +726,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PORTC_IRQHandler
 </UL>
 
-<P><STRONG><a name="[91]"></a>Output_Init</STRONG> (Thumb, 204 bytes, Stack size 0 bytes, drivers.o(i.Output_Init))
+<P><STRONG><a name="[91]"></a>Output_Config</STRONG> (Thumb, 204 bytes, Stack size 0 bytes, drivers.o(i.Output_Config))
 <BR><BR>[Called By]<UL><LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -739,8 +739,8 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_mk20d7.o(RESET)
 </UL>
-<P><STRONG><a name="[8a]"></a>Switch_Init</STRONG> (Thumb, 114 bytes, Stack size 8 bytes, drivers.o(i.Switch_Init))
-<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Switch_Init
+<P><STRONG><a name="[8a]"></a>Switch_Config</STRONG> (Thumb, 114 bytes, Stack size 8 bytes, drivers.o(i.Switch_Config))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Switch_Config
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__NVIC_EnableIRQ
 </UL>
@@ -758,8 +758,8 @@ Global Symbols
 <P><STRONG><a name="[6d]"></a>SystemInit</STRONG> (Thumb, 340 bytes, Stack size 0 bytes, system_mk20d7.o(i.SystemInit))
 <BR>[Address Reference Count : 1]<UL><LI> startup_mk20d7.o(.text)
 </UL>
-<P><STRONG><a name="[8e]"></a>UART0_Init</STRONG> (Thumb, 78 bytes, Stack size 8 bytes, drivers.o(i.UART0_Init))
-<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = UART0_Init
+<P><STRONG><a name="[8e]"></a>UART0_Config</STRONG> (Thumb, 78 bytes, Stack size 8 bytes, drivers.o(i.UART0_Config))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = UART0_Config
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__NVIC_EnableIRQ
 </UL>
@@ -777,12 +777,12 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = main &rArr; Finger_Action &rArr; arm_mean_q15
 </UL>
 <BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arm_fill_q15
-<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART0_Init
-<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Switch_Init
-<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Output_Init
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Init
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART0_Config
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Switch_Config
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Output_Config
+<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Config
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Finger_Action
-<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC0_Init
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC0_Config
 </UL>
 <BR>[Called By]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
@@ -791,8 +791,8 @@ Global Symbols
 Local Symbols
 </H3>
 <P><STRONG><a name="[8b]"></a>__NVIC_EnableIRQ</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, drivers.o(i.__NVIC_EnableIRQ))
-<BR><BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART0_Init
-<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Switch_Init
+<BR><BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART0_Config
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Switch_Config
 </UL>
 <P>
 <H3>
