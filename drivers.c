@@ -100,7 +100,7 @@ void UART0_Config(void){
 	PORTB->PCR[16] = (PORT_PCR_PE_MASK | PORT_PCR_PS_MASK | PORT_PCR_PFE_MASK | PORT_PCR_MUX(3));
 	PORTB->PCR[17] = (PORT_PCR_DSE_MASK  | PORT_PCR_SRE_MASK | PORT_PCR_MUX(3));
 	UART0->C2 &= (uint8_t)~(uint8_t)((UART_C2_TE_MASK | UART_C2_RE_MASK));
-	UART0->BDH = UART_BDH_SBR(0x00);																																		// 115200 Bauds	
+	UART0->BDH = UART_BDH_SBR(0x00);																																			// 115200 Bauds	
 	UART0->BDL = UART_BDL_SBR(0x27);	
 	UART0->C4 = UART_C4_BRFA(0x02);
 	UART0->C1 = UART_C1_ILT_MASK;
@@ -118,8 +118,8 @@ void UART2_Config(void){
 	PORTD->PCR[3] = (PORT_PCR_DSE_MASK  | PORT_PCR_SRE_MASK | PORT_PCR_MUX(3));
 	UART2->C2 &= (uint8_t)~(uint8_t)((UART_C2_TE_MASK | UART_C2_RE_MASK));
 	UART2->BDH = UART_BDH_SBR(0x00);
-	UART2->BDL = UART_BDL_SBR(0xEA);																																		//115200 bauds - 0x13, 9600 bauds - 0xEA
-	UART2->C4 = UART_C4_BRFA(0x0C);																																			//115200 bauds - 0x11, 9600 bauds - 0x0C																										
+	UART2->BDL = UART_BDL_SBR(0xEA);																																			//115200 bauds - 0x13, 9600 bauds - 0xEA
+	UART2->C4 = UART_C4_BRFA(0x0C);																																				//115200 bauds - 0x11, 9600 bauds - 0x0C																										
 	UART2->C1 = UART_C1_ILT_MASK;
 	//UART2->TWFIFO = 2; 																																									// tx watermark, causes S1_TDRE to set
 	//UART2->RWFIFO = 2; 																																									// rx watermark, causes S1_RDRF to set

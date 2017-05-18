@@ -16,12 +16,12 @@
 #include "drivers.h"
 #include "finger.h"
 				
-fingers thumb_f =   {WAITC,5,0,200,0,160};
-fingers index_f =   {WAITC,4,0,200,0,160};
-fingers middle_f =  {WAITC,3,0,200,0,160};
-fingers ring_f =    {WAITC,2,0,200,0,160};
+fingers thumb_f =   {WAITC,5,0,200,0,120};
+fingers index_f =   {WAITC,4,0,200,0,120};
+fingers middle_f =  {WAITC,3,0,200,0,120};
+fingers ring_f =    {WAITC,2,0,200,0,120};
 fingers little_f =  {WAITC,1,0,200,0,120};
-fingers thumb_rot = {WAITC,6,0,200,0,160};
+fingers thumb_rot = {WAITC,6,0,200,0,120};
 	
 uint8_t btn = 0;																	// Activate / deactivate 
 uint8_t cmd = 0;																	// LCD commands
@@ -43,11 +43,19 @@ int main(void){
 	
 	while(1){
 		
-		if(btn) Finger_Action(&little_f, CLOSE);
-		else Finger_Action(&little_f, OPEN);
+		if(btn){ 
+			Finger_Action(&little_f, CLOSE);
+			Finger_Action(&ring_f, CLOSE);
+		}
+		else {
+			Finger_Action(&little_f, OPEN);
+			Finger_Action(&ring_f, OPEN);
+		}
 		
 		//Finger_Close(1);
 		//Finger_Open(1);
+		//Finger_Close(2);
+		//Finger_Open(2);
 		
 	}
 }
@@ -60,6 +68,7 @@ void SysTick_Handler(void) {
 	index_f.buffer[ticks%SIZE] = (int16_t) ADC0_Read(6);
 	
 	Finger_Timing(&little_f);
+	Finger_Timing(&ring_f);
 	
 	//itoa(little_f.time_ms,String);
 	//itoa(little_f.mean,String);

@@ -22,7 +22,7 @@ const uint32_t fingers_mask[] = { 1<<4, 1<<2,  1<<3,
                                   1<<0, 1<<6,  1<<1
                                 };
 
-GPIO_Type * fingers_addr[]    = { PTC, PTC, PTC,
+GPIO_Type *fingers_addr[]    = { PTC, PTC, PTC,
                                   PTD, PTD, PTD,
                                   PTD, PTA, PTA,
                                   PTD, PTD, PTC
@@ -49,7 +49,7 @@ void Finger_Stop(uint8_t finger_m){
 	}
 }
 
-void Finger_Action(fingers * finger_f, uint8_t action){
+void Finger_Action(fingers *finger_f, uint8_t action){
 	if(action == CLOSE){
 		switch(finger_f->state){
 			case OPEN:{
@@ -106,7 +106,7 @@ void Finger_Action(fingers * finger_f, uint8_t action){
 	}
 }
 
-void Finger_Timing(fingers * finger_f){
+void Finger_Timing(fingers *finger_f){
 	switch(finger_f->state){
 		case OPEN:  finger_f->time_ms -= 1; break;
 		case WAITC: finger_f->time_ms = 0; break;
