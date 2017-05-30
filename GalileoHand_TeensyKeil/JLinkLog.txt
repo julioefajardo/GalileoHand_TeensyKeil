@@ -1,0 +1,31 @@
+
+T1568 011:623 SEGGER J-Link V5.12e Log File (0001ms, 11185ms total)
+T1568 011:623 DLL Compiled: Apr 29 2016 15:03:58 (0001ms, 11185ms total)
+T1568 011:623 Logging started @ 2017-05-25 10:58 (0001ms, 11185ms total)
+T1568 011:624 JLINK_SetWarnOutHandler(...) (0014ms, 11199ms total)
+T1568 011:639 JLINK_OpenEx(...)
+Firmware: J-Link OpenSDA 2 compiled Jun 11 2015 11:14:45
+Hardware: V1.00
+S/N: 621000000  returns O.K. (0261ms, 11461ms total)
+T1568 011:900 JLINK_SetErrorOutHandler(...) (0000ms, 11461ms total)
+T1568 011:911 JLINK_ExecCommand("ProjectFile = "D:\TuringLab\GalileoHand_TeensyKeil\GalileoHand_TeensyKeil\JLinkSettings.ini"", ...)  returns 0x00 (0571ms, 12032ms total)
+T1568 012:482 JLINK_ExecCommand("Device = MK20DX256xxx7", ...)Device "MK20DX256XXX7" selected.  returns 0x00 (0315ms, 12348ms total)
+T1568 012:798 JLINK_ExecCommand("DisableConnectionTimeout", ...)  returns 0x01 (0000ms, 12348ms total)
+T1568 012:798 JLINK_GetHardwareVersion()  returns 0x2710 (0000ms, 12348ms total)
+T1568 012:798 JLINK_GetDLLVersion()  returns 51205 (0000ms, 12348ms total)
+T1568 012:798 JLINK_GetFirmwareString(...) (0000ms, 12348ms total)
+T1568 012:798 JLINK_GetDLLVersion()  returns 51205 (0000ms, 12348ms total)
+T1568 012:798 JLINK_GetCompileDateTime() (0000ms, 12348ms total)
+T1568 012:798 JLINK_GetFirmwareString(...) (0000ms, 12348ms total)
+T1568 012:798 JLINK_GetHardwareVersion()  returns 0x2710 (0000ms, 12348ms total)
+T1568 012:798 JLINK_TIF_Select(JLINKARM_TIF_JTAG)
+  ***** Error: Debugger tries to select target interface JTAG.
+This interface is not supported by the connected emulator.
+Selection will be ignored by the DLL.  returns 0x01 (0000ms, 12348ms total)
+T1568 012:799 JLINK_GetHardwareVersion()  returns 0x2710 (0000ms, 12348ms total)
+T1568 012:799 JLINK_GetDLLVersion()  returns 51205 (0000ms, 12348ms total)
+T1568 012:799 JLINK_GetFirmwareString(...) (0000ms, 12348ms total)
+T1568 012:956 JLINK_GetFirmwareString(...) (0000ms, 12348ms total)
+T1568 016:397 JLINK_Close() (0000ms, 12348ms total)
+T1568 016:397  (0000ms, 12348ms total)
+T1568 016:397 Closed (0000ms, 12348ms total)

@@ -115,3 +115,58 @@ void Finger_Timing(fingers *finger_f){
 	}
 }
 
+void Finger_Rotation(fingers *finger_f, uint8_t action){
+	if(action == CLOSE){
+		switch(finger_f->state){
+			case OPEN:{
+				finger_f->state = CLOSE;
+				Finger_Stop(finger_f->finger_m);
+			} break;
+			case WAITC:{
+				finger_f->state = CLOSE;
+				Finger_Stop(finger_f->finger_m);
+			} break;
+			case CLOSE:{
+				if((finger_f->time_ms<200)&&(finger_f->state == CLOSE)){
+					finger_f->state = CLOSE;
+					Finger_Close(finger_f->finger_m);
+				}
+				else { 
+					finger_f->state = WAITO;
+					Finger_Stop(finger_f->finger_m);
+				}	
+			} break;
+			case WAITO:{
+				finger_f->state = WAITO;
+				Finger_Stop(finger_f->finger_m);
+			} break;
+		}
+	} else{	//OPEN
+		switch(finger_f->state){
+			case OPEN:{
+				if((finger_f->time_ms>0)&&(finger_f->state == OPEN)){
+					finger_f->state = OPEN;
+					Finger_Open(finger_f->finger_m);
+				}
+				else{
+					finger_f->state = WAITC;
+					finger_f->time_ms = 0;
+					Finger_Stop(finger_f->finger_m);
+				}
+			} break;
+			case WAITC:{
+				finger_f->state = WAITC;
+				Finger_Stop(finger_f->finger_m);
+			} break;
+			case CLOSE:{
+				finger_f->state = OPEN;
+				Finger_Stop(finger_f->finger_m);
+			} break;
+			case WAITO:{
+				finger_f->state = OPEN;
+				Finger_Stop(finger_f->finger_m);
+			} break;
+		}
+	}
+}
+

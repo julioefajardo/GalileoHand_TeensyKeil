@@ -18,7 +18,8 @@ void Finger_Close(uint8_t finger_m);
 void Finger_Open(uint8_t finger_m);
 void Finger_Stop(uint8_t finger_m);
 void Finger_Action(fingers * finger_f, uint8_t action);
-//void Finger_Timing(uint8_t *state, uint32_t * time_ms);
 void Finger_Timing(fingers * finger_f);
+void Finger_Rotation(fingers *finger_f, uint8_t action);
+;
 
 #endif /* DRIVERS_H_ */
