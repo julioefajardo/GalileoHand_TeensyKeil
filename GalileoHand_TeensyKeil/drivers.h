@@ -15,30 +15,6 @@
 #include <stdlib.h>
 #include "arm_math.h"                   // ARM::CMSIS:DSP
 
-#define 		SIZE 			50
-
-#define			OPEN			0
-#define			WAITC			1
-#define			CLOSE			2
-#define			WAITO			3
-
-#define			POWER			0
-#define			POINT			1
-#define			PINCH			2
-#define			HOOK			3
-#define			LATERAL		4
-#define			PEACE			5
-
-typedef struct finger{
-	uint8_t state;
-	uint8_t finger_m;
-  uint32_t time_ms;	
-	uint32_t time_r;
-	q15_t mean;
-	q15_t threshold;
-	q15_t buffer[SIZE];
-	} fingers;
-
 void LED_Config(void);
 void Output_Config(void);
 void Switch_Config(void);

@@ -14,7 +14,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "MK20D7.h"
-#include "drivers.h"                   
+#include "drivers.h"    
+#include "finger.h"
 
 const uint32_t fingers_mask[] = { 1<<4, 1<<2,  1<<3,
                                   1<<3, 1<<4,  1<<2,

@@ -15,21 +15,30 @@
 #include <stdlib.h>
 #include "drivers.h"
 #include "finger.h"
-				
+
+fingers thumb_rot = {WAITC,6,0,200,0,120};
 fingers thumb_f =   {WAITC,5,0,200,0,120};
 fingers index_f =   {WAITC,4,0,200,0,120};
 fingers middle_f =  {WAITC,3,0,200,0,150};
 fingers ring_f =    {WAITC,2,0,200,0,120};
 fingers little_f =  {WAITC,1,0,200,0,120};
-fingers thumb_rot = {WAITC,6,0,200,0,120};
+
+
+uint8_t actions[7][6] = { CLOSE, CLOSE, CLOSE, CLOSE, CLOSE, CLOSE,		// Power Grip 
+													CLOSE, CLOSE, CLOSE,  OPEN, CLOSE, CLOSE,		// Point
+													OPEN,  OPEN,  OPEN,  CLOSE, CLOSE, CLOSE,		// Pinch
+													CLOSE, CLOSE, CLOSE, CLOSE, OPEN,  OPEN,		// Hook
+													CLOSE, CLOSE, CLOSE, CLOSE, CLOSE, OPEN,		// Lateral
+													CLOSE, CLOSE, OPEN,   OPEN, CLOSE, CLOSE,		// Peace
+													OPEN,  OPEN,  OPEN,   OPEN, OPEN,  OPEN			// Open
+												}; 
 	
-uint8_t btn = 0;																	// Activate / deactivate 
-uint8_t cmd = 0;																	// LCD commands
-uint32_t ticks = 0;																// 1 ms ticks
+uint8_t btn = 0;																											// Activate / deactivate 
+uint8_t cmd = 0;																											// LCD commands
+uint32_t ticks = 0;																										// 1 ms ticks
 uint8_t i = 0;
 
-void Hand_Action(uint8_t index_action, uint8_t middle_action, uint8_t ring_action, 
-									uint8_t little_action, uint8_t thumb_action, uint8_t trot_action);
+void Hand_Action(uint8_t hand_action);
 
 int main(void){
 	Switch_Config();
@@ -47,7 +56,15 @@ int main(void){
 	while(1){
 		
 		if(btn){ 
-			Hand_Action(CLOSE,CLOSE,CLOSE,CLOSE,CLOSE,CLOSE);
+			switch(cmd){
+				case POWER: 	Hand_Action(POWER);	 	break;
+				case POINT: 	Hand_Action(POINT);	 	break;		
+				case PINCH: 	Hand_Action(PINCH); 	break;
+				case HOOK:  	Hand_Action(HOOK);  	break;
+				case LATERAL: Hand_Action(LATERAL); break;
+				case PEACE: 	Hand_Action(PEACE); 	break;
+				default: 			Hand_Action(PEACE); 
+			}
 			//Finger_Action(&little_f, CLOSE);
 			//Finger_Action(&ring_f, CLOSE);
 			//Finger_Action(&middle_f, CLOSE);
@@ -55,7 +72,7 @@ int main(void){
 			//Finger_Rotation(&thumb_rot, CLOSE);
 		}
 		else {
-			Hand_Action(OPEN,OPEN,OPEN,OPEN,OPEN,OPEN);
+			Hand_Action(REST);
 			//Finger_Action(&little_f, OPEN);
 			//Finger_Action(&ring_f, OPEN);
 			//Finger_Action(&middle_f, OPEN);
@@ -69,7 +86,6 @@ int main(void){
 }
 
 void SysTick_Handler(void) {
-	//char String[16];
 	little_f.buffer[ticks%SIZE] = (int16_t) ADC0_Read(3);
 	ring_f.buffer[ticks%SIZE]   = (int16_t) ADC0_Read(4);
 	middle_f.buffer[ticks%SIZE] = (int16_t) ADC0_Read(5);
@@ -81,9 +97,6 @@ void SysTick_Handler(void) {
 	Finger_Timing(&index_f);
 	Finger_Timing(&thumb_rot);
 	
-	//itoa(little_f.time_ms,String);
-	//itoa(little_f.mean,String);
-	//UART0_putString(String);
 	ticks++; 
 }
 
@@ -114,12 +127,11 @@ void UART0_RX_TX_IRQHandler(void){
 	UART0->D = data;
 }
 
-void Hand_Action(uint8_t index_action, uint8_t middle_action, uint8_t ring_action, 
-									uint8_t little_action, uint8_t thumb_action, uint8_t trot_action){
-	Finger_Action(&little_f, little_action);
-	Finger_Action(&ring_f, ring_action);
-	Finger_Action(&middle_f, middle_action);
-	Finger_Action(&index_f, index_action);
-	Finger_Action(&thumb_f, thumb_action);
-	Finger_Rotation(&thumb_rot, thumb_action);
+void Hand_Action(uint8_t hand_action){
+	Finger_Action(&little_f, actions[hand_action][0]);
+	Finger_Action(&ring_f, actions[hand_action][1]);
+	Finger_Action(&middle_f, actions[hand_action][2]);
+	Finger_Action(&index_f, actions[hand_action][3]);
+	Finger_Action(&thumb_f, actions[hand_action][4]);
+	Finger_Rotation(&thumb_rot, actions[hand_action][5]);
 }
