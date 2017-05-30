@@ -120,7 +120,7 @@ void PORTC_IRQHandler(void){
 	
 void UART0_RX_TX_IRQHandler(void){
 	uint8_t data ;
-  (void) UART0->S1;
+	(void) UART0->S1;
 	data = UART0->D;
 	UART0->D = data;
 }
