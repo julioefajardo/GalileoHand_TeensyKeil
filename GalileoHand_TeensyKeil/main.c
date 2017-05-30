@@ -23,22 +23,20 @@ fingers middle_f =  {WAITC,3,0,200,0,150};
 fingers ring_f =    {WAITC,2,0,200,0,120};
 fingers little_f =  {WAITC,1,0,200,0,120};
 
+const uint8_t actions[7][6] = { CLOSE, CLOSE, CLOSE, CLOSE, CLOSE, CLOSE,   // Power Grip 
+                                CLOSE, CLOSE, CLOSE,  OPEN, CLOSE, CLOSE,   // Point
+                                OPEN,  OPEN,  OPEN,  CLOSE, CLOSE, CLOSE,   // Pinch
+                                CLOSE, CLOSE, CLOSE, CLOSE, OPEN,  OPEN,    // Hook
+                                CLOSE, CLOSE, CLOSE, CLOSE, CLOSE, OPEN,    // Lateral
+                                CLOSE, CLOSE, OPEN,   OPEN, CLOSE, CLOSE,   // Peace
+													      OPEN,  OPEN,  OPEN,   OPEN, OPEN,  OPEN	    // Open
+                              }; 
 
-uint8_t actions[7][6] = { CLOSE, CLOSE, CLOSE, CLOSE, CLOSE, CLOSE,		// Power Grip 
-													CLOSE, CLOSE, CLOSE,  OPEN, CLOSE, CLOSE,		// Point
-													OPEN,  OPEN,  OPEN,  CLOSE, CLOSE, CLOSE,		// Pinch
-													CLOSE, CLOSE, CLOSE, CLOSE, OPEN,  OPEN,		// Hook
-													CLOSE, CLOSE, CLOSE, CLOSE, CLOSE, OPEN,		// Lateral
-													CLOSE, CLOSE, OPEN,   OPEN, CLOSE, CLOSE,		// Peace
-													OPEN,  OPEN,  OPEN,   OPEN, OPEN,  OPEN			// Open
-												}; 
-	
-uint8_t btn = 0;																											// Activate / deactivate 
-uint8_t cmd = 0;																											// LCD commands
-uint32_t ticks = 0;																										// 1 ms ticks
+
+uint8_t btn = 0;					                                                  // Activate / deactivate 
+uint8_t cmd = 0;					                                                  // LCD commands
+uint32_t ticks = 0;				                                                  // 1 ms ticks
 uint8_t i = 0;
-
-void Hand_Action(uint8_t hand_action);
 
 int main(void){
 	Switch_Config();
@@ -63,7 +61,7 @@ int main(void){
 				case HOOK:  	Hand_Action(HOOK);  	break;
 				case LATERAL: Hand_Action(LATERAL); break;
 				case PEACE: 	Hand_Action(PEACE); 	break;
-				default: 			Hand_Action(PEACE); 
+				default: 			Hand_Action(POWER); 
 			}
 			//Finger_Action(&little_f, CLOSE);
 			//Finger_Action(&ring_f, CLOSE);
