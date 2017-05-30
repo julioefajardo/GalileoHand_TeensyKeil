@@ -29,13 +29,13 @@ const uint8_t actions[7][6] = { CLOSE, CLOSE, CLOSE, CLOSE, CLOSE, CLOSE,   // P
                                 CLOSE, CLOSE, CLOSE, CLOSE, OPEN,  OPEN,    // Hook
                                 CLOSE, CLOSE, CLOSE, CLOSE, CLOSE, OPEN,    // Lateral
                                 CLOSE, CLOSE, OPEN,   OPEN, CLOSE, CLOSE,   // Peace
-													      OPEN,  OPEN,  OPEN,   OPEN, OPEN,  OPEN	    // Open
+                                OPEN,  OPEN,  OPEN,   OPEN, OPEN,  OPEN	    // Open
                               }; 
 
 
-uint8_t btn = 0;					                                                  // Activate / deactivate 
-uint8_t cmd = 0;					                                                  // LCD commands
-uint32_t ticks = 0;				                                                  // 1 ms ticks
+uint8_t btn = 0;                                                            // Activate / deactivate 
+uint8_t cmd = 0;                                                            // LCD commands
+uint32_t ticks = 0;                                                         // 1 ms ticks
 uint8_t i = 0;
 
 int main(void){
@@ -55,13 +55,13 @@ int main(void){
 		
 		if(btn){ 
 			switch(cmd){
-				case POWER: 	Hand_Action(POWER);	 	break;
-				case POINT: 	Hand_Action(POINT);	 	break;		
-				case PINCH: 	Hand_Action(PINCH); 	break;
-				case HOOK:  	Hand_Action(HOOK);  	break;
+				case POWER:   Hand_Action(POWER);   break;
+				case POINT:   Hand_Action(POINT);   break;		
+				case PINCH:   Hand_Action(PINCH);   break;
+				case HOOK:    Hand_Action(HOOK);    break;
 				case LATERAL: Hand_Action(LATERAL); break;
-				case PEACE: 	Hand_Action(PEACE); 	break;
-				default: 			Hand_Action(POWER); 
+				case PEACE:   Hand_Action(PEACE);   break;
+				default:      Hand_Action(POWER); 
 			}
 			//Finger_Action(&little_f, CLOSE);
 			//Finger_Action(&ring_f, CLOSE);
