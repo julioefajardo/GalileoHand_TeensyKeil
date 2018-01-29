@@ -33,6 +33,8 @@ void UART0_putString(char *mystring);
 void UART2_send(char dato);
 void UART2_putString(char *mystring);
 
+void PIT_Init(uint32_t frequency);
+
 void reverse(char s[]);
 void itoa(int32_t n, char s[]);
 #endif /* DRIVERS_H_ */

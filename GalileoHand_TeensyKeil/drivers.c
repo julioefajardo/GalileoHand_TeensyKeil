@@ -172,6 +172,15 @@ void UART2_putString(char *mystring){
 	}
 }
 
+void PIT_Init(uint32_t frequency){
+	SIM->SCGC6 |= SIM_SCGC6_PIT_MASK;
+	PIT->MCR &= ~(PIT_MCR_MDIS_MASK + PIT_MCR_FRZ_MASK);
+	PIT->CHANNEL[0].LDVAL = (SystemCoreClock/2)/frequency;
+	PIT->CHANNEL[0].TCTRL = PIT_TCTRL_TIE_MASK + PIT_TCTRL_TEN_MASK;
+	NVIC_EnableIRQ(PIT0_IRQn);
+}
+
+
 //array reverse
 void reverse(char s[]){
 	int i, j; char c;

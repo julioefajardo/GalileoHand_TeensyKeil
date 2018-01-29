@@ -1099,18 +1099,17 @@ ARM Macro Assembler    Page 17
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4 --apcs=interw
 ork --depend=.\objects\startup_mk20d7.d -o.\objects\startup_mk20d7.o -ID:\Turin
-gLab\GalileoHand_TeensyKeil\GalileoHand_TeensyKeil\RTE -ID:\TuringLab\GalileoHa
-nd_TeensyKeil\GalileoHand_TeensyKeil\RTE\Device\MK20DX256xxx7 -IC:\Keil_v5\ARM\
-PACK\ARM\CMSIS\5.0.0\CMSIS\Include -IC:\Keil_v5\ARM\PACK\Keil\Kinetis_K20_DFP\1
-.3.0\Device\Include --predefine="__EVAL SETA 1" --predefine="__UVISION_VERSION 
+gLab\GalileoHand_TeensyKeil\GalileoHand_TeensyKeil\RTE -IC:\Keil_v5\ARM\PACK\AR
+M\CMSIS\5.0.1\CMSIS\Include -IC:\Keil_v5\ARM\PACK\Keil\Kinetis_K20_DFP\1.5.2\De
+vice\Include --predefine="__EVAL SETA 1" --predefine="__UVISION_VERSION SETA 52
+0" --predefine="_RTE_ SETA 1" --predefine="MK20DX256xxx7 SETA 1" --list=.\listi
 
 
 
 ARM Macro Assembler    Page 18 
 
 
-SETA 520" --predefine="_RTE_ SETA 1" --predefine="MK20DX256xxx7 SETA 1" --list=
-.\listings\startup_mk20d7.lst RTE\Device\MK20DX256xxx7\startup_MK20D7.s
+ngs\startup_mk20d7.lst RTE\Device\MK20DX256xxx7\startup_MK20D7.s
 
 
 
