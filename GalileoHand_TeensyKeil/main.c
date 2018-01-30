@@ -21,6 +21,7 @@
 #define ACTIVATED   1
 
 int16_t value = 0;
+q15_t qvalue = 0;
 char debug[32];
 
 typedef struct electrode{
@@ -30,8 +31,8 @@ typedef struct electrode{
   q15_t rectified[SIZE];
   } electrodes;
 
-electrodes E1 = {0,50};
-electrodes E2 = {0,50};
+electrodes E1 = {0,1024};
+electrodes E2 = {0,1024};
 
 uint8_t muscle_state = DEACTIVATED;
 
@@ -79,9 +80,12 @@ int main(void){
     //Finger_Close(4);
     //Finger_Open(4);
     arm_abs_q15(E1.buffer,E1.rectified,SIZE);
-    arm_abs_q15(E2.buffer,E1.rectified,SIZE);
+    arm_abs_q15(E2.buffer,E2.rectified,SIZE);
     arm_mean_q15(E1.rectified,SIZE,&E1.mean);
-    arm_mean_q15(E1.rectified,SIZE,&E1.mean);
+    arm_mean_q15(E2.rectified,SIZE,&E2.mean);
+		
+	  //sprintf(debug,"%d\r",E1.mean);
+	  //UART0_putString(debug);
 		
     switch(muscle_state){
       case DEACTIVATED:{
@@ -129,11 +133,7 @@ int main(void){
 }
 
 void SysTick_Handler(void) {
-  //LED_On();
-  //value = (int16_t) ADC0_Read(6);
-  //sprintf(debug,"%d\r",value);
-  //UART0_putString(debug);
-		
+  //LED_On();		
   little_f.buffer[ticks%SIZE] = (int16_t) ADC0_Read(2);
   ring_f.buffer[ticks%SIZE]   = (int16_t) ADC0_Read(3);
   middle_f.buffer[ticks%SIZE] = (int16_t) ADC0_Read(4);
@@ -152,8 +152,8 @@ void SysTick_Handler(void) {
 
 void PIT0_IRQHandler(void){
   PIT->CHANNEL[0].TFLG |= PIT_TFLG_TIF_MASK;																										
-  E1.buffer[ticks%SIZE] = ADC0_Read(0);
-  E2.buffer[ticks%SIZE] = ADC0_Read(1);
+  E1.buffer[ticks%SIZE] = ADC0_Read(0)-2048;
+  E2.buffer[ticks%SIZE] = ADC0_Read(1)-2048;
 
   //LED_Toggle();
 }
