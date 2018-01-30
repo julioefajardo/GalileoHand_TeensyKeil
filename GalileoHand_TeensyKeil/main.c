@@ -31,8 +31,8 @@ typedef struct electrode{
   q15_t rectified[SIZE];
   } electrodes;
 
-electrodes E1 = {0,1024};
-electrodes E2 = {0,1024};
+electrodes E1 = {0,200};
+electrodes E2 = {0,150};
 
 uint8_t muscle_state = DEACTIVATED;
 
@@ -83,9 +83,6 @@ int main(void){
     arm_abs_q15(E2.buffer,E2.rectified,SIZE);
     arm_mean_q15(E1.rectified,SIZE,&E1.mean);
     arm_mean_q15(E2.rectified,SIZE,&E2.mean);
-		
-	  //sprintf(debug,"%d\r",E1.mean);
-	  //UART0_putString(debug);
 		
     switch(muscle_state){
       case DEACTIVATED:{
@@ -152,9 +149,10 @@ void SysTick_Handler(void) {
 
 void PIT0_IRQHandler(void){
   PIT->CHANNEL[0].TFLG |= PIT_TFLG_TIF_MASK;																										
-  E1.buffer[ticks%SIZE] = ADC0_Read(0)-2048;
-  E2.buffer[ticks%SIZE] = ADC0_Read(1)-2048;
-
+  E1.buffer[ticks%SIZE] = ADC0_Read(0)-2850;
+  E2.buffer[ticks%SIZE] = ADC0_Read(1)-2850;
+  //sprintf(debug,"%d\r",ADC0_Read(0)-2048);
+	//UART0_putString(debug);
   //LED_Toggle();
 }
 
