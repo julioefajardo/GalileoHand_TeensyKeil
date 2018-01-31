@@ -36,12 +36,12 @@ electrodes E2 = {0,150};
 
 uint8_t muscle_state = DEACTIVATED;
 
-fingers thumb_rot = {WAITC,6,0,200,0,120};
-fingers thumb_f =   {WAITC,5,0,200,0,120};
-fingers index_f =   {WAITC,4,0,200,0,120};
-fingers middle_f =  {WAITC,3,0,200,0,150};
-fingers ring_f =    {WAITC,2,0,200,0,120};
-fingers little_f =  {WAITC,1,0,200,0,120};
+fingers thumb_rot = {WAITC,6,0,200,0,80};
+fingers thumb_f =   {WAITC,5,0,200,0,80};
+fingers index_f =   {WAITC,4,0,200,0,80};
+fingers middle_f =  {WAITC,3,0,200,0,100};
+fingers ring_f =    {WAITC,2,0,200,0,80};
+fingers little_f =  {WAITC,1,0,200,0,80};
 
 const uint8_t actions[7][6] = { CLOSE, CLOSE, CLOSE, CLOSE, CLOSE, CLOSE,   // Power Grip 
                                 CLOSE, CLOSE, CLOSE,  OPEN, CLOSE, CLOSE,   // Point
@@ -50,8 +50,7 @@ const uint8_t actions[7][6] = { CLOSE, CLOSE, CLOSE, CLOSE, CLOSE, CLOSE,   // P
                                 CLOSE, CLOSE, CLOSE, CLOSE, CLOSE, OPEN,    // Lateral
                                 CLOSE, CLOSE, OPEN,   OPEN, CLOSE, CLOSE,   // Peace
                                 OPEN,  OPEN,  OPEN,   OPEN, OPEN,  OPEN	    // Open
-                              }; 
-
+                              };
 
 uint8_t btn = 0;                                                            // Activate / deactivate 
 uint8_t cmd = 0;                                                            // LCD commands
@@ -77,9 +76,12 @@ int main(void){
   arm_fill_q15(0, E2.buffer, SIZE);
 	
   while(1){
-    //Finger_Close(4);
-    //Finger_Open(4);
-    arm_abs_q15(E1.buffer,E1.rectified,SIZE);
+		/*Finger_Close(1);
+		Finger_Close(2);
+		Finger_Close(3);
+    Finger_Close(4);*/
+    
+		arm_abs_q15(E1.buffer,E1.rectified,SIZE);
     arm_abs_q15(E2.buffer,E2.rectified,SIZE);
     arm_mean_q15(E1.rectified,SIZE,&E1.mean);
     arm_mean_q15(E2.rectified,SIZE,&E2.mean);
@@ -100,7 +102,7 @@ int main(void){
     }
 		
     if(btn){ 
-      switch(cmd){
+			switch(cmd){
         case POWER:   Hand_Action(POWER);   break;
         case POINT:   Hand_Action(POINT);   break;		
         case PINCH:   Hand_Action(PINCH);   break;
@@ -109,21 +111,8 @@ int main(void){
         case PEACE:   Hand_Action(PEACE);   break;
         default:      Hand_Action(POWER); 
       }
-      //Finger_Action(&little_f, CLOSE);
-      //Finger_Action(&ring_f, CLOSE);
-      //Finger_Action(&middle_f, CLOSE);
-      //Finger_Action(&index_f, CLOSE);
-      //Finger_Rotation(&thumb_rot, CLOSE);
     }
-    else {
-      Hand_Action(REST);
-      //Finger_Action(&little_f, OPEN);
-      //Finger_Action(&ring_f, OPEN);
-      //Finger_Action(&middle_f, OPEN);
-      //Finger_Action(&index_f, OPEN);
-      //Finger_Rotation(&thumb_rot, OPEN);
-    }
-		
+    else Hand_Action(REST);
     //Finger_Close(1);
     //Finger_Open(1);	
   }
