@@ -116,7 +116,7 @@ void Finger_Timing(fingers *finger_f){
 	}
 }
 
-void Finger_Rotation(fingers *finger_f, uint8_t action){
+void Finger_ActionTime(fingers *finger_f, uint8_t action){
 	if(action == CLOSE){
 		switch(finger_f->state){
 			case OPEN:{
@@ -128,7 +128,7 @@ void Finger_Rotation(fingers *finger_f, uint8_t action){
 				Finger_Stop(finger_f->finger_m);
 			} break;
 			case CLOSE:{
-				if((finger_f->time_ms<200)&&(finger_f->state == CLOSE)){
+				if((finger_f->time_ms<finger_f->time_r)&&(finger_f->state == CLOSE)){
 					finger_f->state = CLOSE;
 					Finger_Close(finger_f->finger_m);
 				}
@@ -171,3 +171,5 @@ void Finger_Rotation(fingers *finger_f, uint8_t action){
 	}
 }
 
+void Finger_Rotation(fingers *finger_f, uint8_t action){
+}

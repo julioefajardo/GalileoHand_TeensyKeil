@@ -11,11 +11,11 @@
 #ifndef DRIVERS_H_
 #define DRIVERS_H_
 
+#define ARM_MATH_CM4
 #include <stdint.h>
 #include <stdlib.h>
 #include "arm_math.h"                   // ARM::CMSIS:DSP
-
-
+	
 void LED_Config(void);
 void Output_Config(void);
 void Switch_Config(void);
@@ -35,6 +35,10 @@ void UART2_send(char dato);
 void UART2_putString(char *mystring);
 
 void PIT_Init(uint32_t frequency);
+
+void QD_Init(int16_t * encoding);
+void QD_Process(int16_t * encoding);
+
 
 void reverse(char s[]);
 void itoa(int32_t n, char s[]);

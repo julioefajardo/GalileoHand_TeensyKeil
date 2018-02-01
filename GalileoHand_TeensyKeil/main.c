@@ -21,8 +21,9 @@
 #define ACTIVATED   1
 
 int16_t value = 0;
-q15_t qvalue = 0;
 char debug[32];
+
+int16_t encoding = 0;
 
 typedef struct electrode{
   q15_t mean;
@@ -178,5 +179,5 @@ void Hand_Action(uint8_t hand_action){
   Finger_Action(&middle_f, actions[hand_action][2]);
   Finger_Action(&index_f, actions[hand_action][3]);
   Finger_Action(&thumb_f, actions[hand_action][4]);
-  Finger_Rotation(&thumb_rot, actions[hand_action][5]);
+  Finger_ActionTime(&thumb_rot, actions[hand_action][5]);
 }

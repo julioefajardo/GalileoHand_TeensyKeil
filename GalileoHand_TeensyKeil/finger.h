@@ -45,6 +45,7 @@ void Finger_Open(uint8_t finger_m);
 void Finger_Stop(uint8_t finger_m);
 void Finger_Action(fingers * finger_f, uint8_t action);
 void Finger_Timing(fingers * finger_f);
+void Finger_ActionTime(fingers *finger_f, uint8_t action);
 void Finger_Rotation(fingers *finger_f, uint8_t action);
 void Hand_Action(uint8_t hand_action);
 

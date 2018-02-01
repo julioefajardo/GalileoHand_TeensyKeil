@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "MK20D7.h"
+#include "drivers.h"
 
 static const uint8_t channel2sc1a[] = {
 	5, 14, 8, 9, 13, 12, 6, 7, 15, 4,
@@ -181,27 +182,22 @@ void PIT_Init(uint32_t frequency){
 }
 
 
-//array reverse
-void reverse(char s[]){
-	int i, j; char c;
-  for (i = 0, j = strlen(s)-1; i<j; i++, j--) {
-		c = s[i];
-    s[i] = s[j];
-    s[j] = c;	
-	}
+// Quadrature Decoder Initialization, receives as argument a QuadratureDecoder structure (ticks, steps)
+// and the number of the motor encoder to use
+void QD_Init(int16_t * encoding){
+	SIM->SCGC5 |= SIM_SCGC5_PORTB_MASK;
+	SIM->SCGC3 |= SIM_SCGC3_FTM2_MASK;
+	PORTB->PCR[18] |= PORT_PCR_MUX(0x06); 
+	PORTB->PCR[19] |= PORT_PCR_MUX(0x06);
+	FTM2->MODE |= FTM_MODE_WPDIS_MASK;
+	FTM2->QDCTRL |= FTM_QDCTRL_PHAFLTREN_MASK + FTM_QDCTRL_PHBFLTREN_MASK + FTM_QDCTRL_QUADEN_MASK;	
+	FTM2->MOD = 0xFFFF;
+	FTM2->SC = FTM_SC_CLKS(0x01) + FTM_SC_PS(0x00);
+	*encoding = 0;
 }
 
-//int to string
-void itoa(int32_t n, char s[]){
-	int i, sign;
-  if ((sign = n) < 0)  											/* record sign */
-		n = -n;          												/* make n positive */
-    i = 0;
-    do {      														  /* generate digits in reverse order */
-			s[i++] = n % 10 + '0';   							/* get next digit */
-    } while ((n /= 10) > 0);     						/* delete it */
-			if (sign < 0)
-				s[i++] = '-';
-			s[i] = '\0';
-			reverse(s);
+// Quadrature Decoder Process, receives as argument a QuadratureDecoder structure and the number of the motor encoder to use, 
+// it determines the amount of steps (16 bit signed).
+void QD_Process(int16_t * encoding){
+	*encoding = FTM2->CNT;
 }
