@@ -174,10 +174,10 @@ void UART0_RX_TX_IRQHandler(void){
 }
 
 void Hand_Action(uint8_t hand_action){
-  Finger_Action(&little_f, actions[hand_action][0]);
-  Finger_Action(&ring_f, actions[hand_action][1]);
-  Finger_Action(&middle_f, actions[hand_action][2]);
-  Finger_Action(&index_f, actions[hand_action][3]);
-  Finger_Action(&thumb_f, actions[hand_action][4]);
-  Finger_ActionTime(&thumb_rot, actions[hand_action][5]);
+  Finger_Action(&little_f, actions[hand_action][0],0);
+  Finger_Action(&ring_f, actions[hand_action][1],0);
+  Finger_Action(&middle_f, actions[hand_action][2],0);
+  Finger_Action(&index_f, actions[hand_action][3],0);
+  Finger_Action(&thumb_f, actions[hand_action][4],0);
+  Finger_ActionTime(&thumb_rot, actions[hand_action][5],0);
 }

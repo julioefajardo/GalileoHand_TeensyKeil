@@ -50,7 +50,7 @@ void Finger_Stop(uint8_t finger_m){
 	}
 }
 
-void Finger_Action(fingers *finger_f, uint8_t action){
+void Finger_Action(fingers *finger_f, uint8_t action, int16_t time_offset){
 	if(action == CLOSE){
 		switch(finger_f->state){
 			case OPEN:{
@@ -74,14 +74,14 @@ void Finger_Action(fingers *finger_f, uint8_t action){
 			} break;
 			case WAITO:{
 				finger_f->state = WAITO;
-				finger_f->time_r = finger_f->time_ms/4;
+				finger_f->time_difference = finger_f->time_ms/4 + time_offset;
 				Finger_Stop(finger_f->finger_m);
 			} break;
 		}
 	} else{	//OPEN
 		switch(finger_f->state){
 			case OPEN:{
-				if((finger_f->time_ms>finger_f->time_r)&&(finger_f->state == OPEN)){
+				if((finger_f->time_ms>finger_f->time_difference)&&(finger_f->state == OPEN)){
 					finger_f->state = OPEN;
 					Finger_Open(finger_f->finger_m);
 				}
@@ -116,7 +116,7 @@ void Finger_Timing(fingers *finger_f){
 	}
 }
 
-void Finger_ActionTime(fingers *finger_f, uint8_t action){
+void Finger_ActionTime(fingers *finger_f, uint8_t action, int16_t time_offset){
 	if(action == CLOSE){
 		switch(finger_f->state){
 			case OPEN:{
@@ -128,7 +128,7 @@ void Finger_ActionTime(fingers *finger_f, uint8_t action){
 				Finger_Stop(finger_f->finger_m);
 			} break;
 			case CLOSE:{
-				if((finger_f->time_ms<finger_f->time_r)&&(finger_f->state == CLOSE)){
+				if((finger_f->time_ms<finger_f->time_difference)&&(finger_f->state == CLOSE)){
 					finger_f->state = CLOSE;
 					Finger_Close(finger_f->finger_m);
 				}
@@ -145,7 +145,7 @@ void Finger_ActionTime(fingers *finger_f, uint8_t action){
 	} else{	//OPEN
 		switch(finger_f->state){
 			case OPEN:{
-				if((finger_f->time_ms>0)&&(finger_f->state == OPEN)){
+				if((finger_f->time_ms>time_offset)&&(finger_f->state == OPEN)){
 					finger_f->state = OPEN;
 					Finger_Open(finger_f->finger_m);
 				}

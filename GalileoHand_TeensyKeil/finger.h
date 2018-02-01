@@ -34,7 +34,7 @@ typedef struct finger{
 	uint8_t state;
 	uint8_t finger_m;
 	uint32_t time_ms;	
-	uint32_t time_r;
+	uint32_t time_difference;
 	q15_t mean;
 	q15_t threshold;
 	q15_t buffer[SIZE];
@@ -43,9 +43,9 @@ typedef struct finger{
 void Finger_Close(uint8_t finger_m);
 void Finger_Open(uint8_t finger_m);
 void Finger_Stop(uint8_t finger_m);
-void Finger_Action(fingers * finger_f, uint8_t action);
+void Finger_Action(fingers * finger_f, uint8_t action, int16_t time_offset);
 void Finger_Timing(fingers * finger_f);
-void Finger_ActionTime(fingers *finger_f, uint8_t action);
+void Finger_ActionTime(fingers *finger_f, uint8_t action, int16_t time_offset);
 void Finger_Rotation(fingers *finger_f, uint8_t action);
 void Hand_Action(uint8_t hand_action);
 
