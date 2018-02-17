@@ -62,14 +62,14 @@ void Hand_Action(uint8_t hand_action);
 void pause(void);															
 															
 int main(void){
-	Switch_Config();
+  Switch_Config();
   LED_Config(); 
   ADC0_Config();
-	PIT_Init(1000);
+  PIT_Init(1000);
   UART0_Config();
   Output_Config();
   SysTick_Config(SystemCoreClock/1000);
-	QD_Init(&encoding);
+  QD_Init(&encoding);
 	
   arm_fill_q15(0, little_f.buffer, SIZE);
   arm_fill_q15(0, ring_f.buffer, SIZE);
@@ -80,10 +80,10 @@ int main(void){
   arm_fill_q15(0, E1.buffer, ESIZE);
   arm_fill_q15(0, E2.buffer, ESIZE);
 	
-	pause();
+  pause();
 		
   while(1){
-		arm_abs_q15(E1.buffer,E1.rectified,ESIZE);
+    arm_abs_q15(E1.buffer,E1.rectified,ESIZE);
     arm_abs_q15(E2.buffer,E2.rectified,ESIZE);
     arm_mean_q15(E1.rectified,ESIZE,&E1.mean);
     arm_mean_q15(E2.rectified,ESIZE,&E2.mean);
@@ -104,7 +104,7 @@ int main(void){
     }
 		
     if(muscle_state){
-			switch(cmd){
+      switch(cmd){
         case POWER:   Hand_Action(POWER);   break;
         case POINT:   Hand_Action(POINT);   break;		
         case PINCH:   Hand_Action(PINCH);   break;
@@ -116,8 +116,8 @@ int main(void){
     }
     else Hand_Action(REST);
 		
-		/*if(btn){
-			switch(cmd){
+    /*if(btn){
+      switch(cmd){
         case POWER:   Hand_Action(POWER);   break;
         case POINT:   Hand_Action(POINT);   break;		
         case PINCH:   Hand_Action(PINCH);   break;
@@ -142,7 +142,7 @@ void SysTick_Handler(void) {
   Finger_Timing(&ring_f);
   Finger_Timing(&middle_f);
   Finger_Timing(&index_f);
-	Finger_Timing(&thumb_f);
+  Finger_Timing(&thumb_f);
   Finger_Timing(&thumb_rot);
 	
   ticks++; 
@@ -152,7 +152,7 @@ void PIT0_IRQHandler(void){
   PIT->CHANNEL[0].TFLG |= PIT_TFLG_TIF_MASK;																										
   E1.buffer[ticks%(ESIZE)] = ADC0_Read(0)-1396;
   E2.buffer[ticks%(ESIZE)] = ADC0_Read(1)-1396;
-	QD_Process(&encoding);
+  QD_Process(&encoding);
 }
 
 void PORTC_IRQHandler(void){
@@ -185,7 +185,7 @@ void Hand_Action(uint8_t hand_action){
   Finger_Action(&middle_f, actions[hand_action][2],0);
   Finger_Action(&index_f, actions[hand_action][3],0);
   Finger_Action(&thumb_f, actions[hand_action][4],0);
-	Finger_ActionTime(&thumb_rot, actions[hand_action][5],0);
+  Finger_ActionTime(&thumb_rot, actions[hand_action][5],0);
 }
 
 void pause(void){
