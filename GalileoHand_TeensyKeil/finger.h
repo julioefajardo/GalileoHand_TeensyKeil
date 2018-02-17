@@ -16,6 +16,7 @@
 #include "arm_math.h"                   // ARM::CMSIS:DSP
 
 #define 		SIZE     50
+#define 		ESIZE    25
 
 #define			OPEN      0
 #define			WAITC     1

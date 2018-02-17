@@ -145,7 +145,7 @@ void Finger_ActionTime(fingers *finger_f, uint8_t action, int16_t time_offset){
 	} else{	//OPEN
 		switch(finger_f->state){
 			case OPEN:{
-				if((finger_f->time_ms>time_offset)&&(finger_f->state == OPEN)){
+				if((finger_f->time_ms>0)&&(finger_f->state == OPEN)){
 					finger_f->state = OPEN;
 					Finger_Open(finger_f->finger_m);
 				}
